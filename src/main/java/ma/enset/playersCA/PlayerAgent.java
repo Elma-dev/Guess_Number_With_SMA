@@ -1,7 +1,11 @@
 package ma.enset.playersCA;
 
+import jade.core.AID;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
+import jade.lang.acl.ACLMessage;
+
+import static jade.lang.acl.ACLParserConstants.AID;
 
 
 public class PlayerAgent extends GuiAgent {
@@ -31,5 +35,10 @@ public class PlayerAgent extends GuiAgent {
     @Override
     protected void onGuiEvent(GuiEvent guiEvent) {
         System.out.println(guiEvent.getParameter(0));
+        String number= (String) guiEvent.getParameter(0);
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+        message.setContent(number);
+        message.addReceiver(new AID("server", jade.core.AID.ISLOCALNAME));
+        send(message);
     }
 }

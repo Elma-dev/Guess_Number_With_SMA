@@ -85,7 +85,7 @@ public class PlayersContainer extends Application {
         //create agentContainer
         AgentContainer agentContainer = runtime.createAgentContainer(profile);
         //create new Agent in container
-        AgentController player1 = agentContainer.createNewAgent("Player1", "org.example.Agents.PlayerAgent", new Object[]{this});
+        AgentController player1 = agentContainer.createNewAgent("Player1", "ma.enset.playersCA.PlayerAgent", new Object[]{this});
         //running of agent
         player1.start();
     }
