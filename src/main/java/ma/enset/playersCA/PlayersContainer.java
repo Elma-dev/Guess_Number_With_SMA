@@ -1,4 +1,4 @@
-package org.example.Agents;
+package ma.enset.playersCA;
 
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -15,7 +15,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.example.Agents.PlayerAgent;
 
 public class PlayersContainer extends Application {
 

@@ -1,6 +1,5 @@
-package org.example.Agents;
+package ma.enset.playersCA;
 
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;

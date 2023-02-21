@@ -1,10 +1,9 @@
-package org.example.containers;
+package ma.enset.containers;
 
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
-import org.example.Agents.PlayerAgent;
 
 public class AgentContainers {
 

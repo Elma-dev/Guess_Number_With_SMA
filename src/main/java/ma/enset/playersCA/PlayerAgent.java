@@ -1,4 +1,4 @@
-package org.example.Agents;
+package ma.enset.playersCA;
 
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;

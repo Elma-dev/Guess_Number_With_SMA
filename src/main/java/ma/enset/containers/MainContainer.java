@@ -1,4 +1,4 @@
-package org.example.containers;
+package ma.enset.containers;
 
 import jade.core.Profile;
 import jade.core.ProfileImpl;
