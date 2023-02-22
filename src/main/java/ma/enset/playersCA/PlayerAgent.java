@@ -74,20 +74,15 @@ public class PlayerAgent extends GuiAgent {
             throw new RuntimeException(e);
         }
     }
-
-    public void afterMove(){
-
-    }
-
-    public void beforeMove(){
-
-    }
     @Override
     protected void onGuiEvent(GuiEvent guiEvent) {
         String number= (String) guiEvent.getParameter(0);
+        //create Message
         ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
         message.setContent(number);
+        //add a server as a receiver
         message.addReceiver(new AID("server", jade.core.AID.ISLOCALNAME));
+        //send message
         send(message);
     }
 }

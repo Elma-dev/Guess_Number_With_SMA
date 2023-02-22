@@ -20,7 +20,6 @@ public class ServerAgent extends Agent {
         final DFAgentDescription[] dfdTemplate = new DFAgentDescription[1];
 
         parallelBehaviour.addSubBehaviour(new TickerBehaviour(this,5000){
-
             @Override
             protected void onTick() {
                 //System.out.println("I'm Server");
@@ -50,6 +49,7 @@ public class ServerAgent extends Agent {
                     rspMsg.addReceiver(new AID(sender,AID.ISLOCALNAME));
 
                     AID[] playerName;
+                    //get List Of players in df
                     try {
                         DFAgentDescription dfAgentDescription[]= DFService.search(myAgent, dfdTemplate[0]);
                         playerName=new AID[dfAgentDescription.length];
@@ -61,7 +61,7 @@ public class ServerAgent extends Agent {
                         throw new RuntimeException(e);
                     }
 
-
+                    /***Server Replay ****/
                     if(Double.parseDouble(recMsg.getContent())== number){
                         rspMsg.setContent("You WIN 🎉🎉🎉");
                         send(rspMsg);

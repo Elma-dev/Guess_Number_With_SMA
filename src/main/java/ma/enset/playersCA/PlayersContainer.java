@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,13 +36,20 @@ public class PlayersContainer extends Application {
     }
 
     public void start(Stage myStage) throws Exception{
-        Platform.setImplicitExit(false);
         /***Create A Player Container***/
         PlayerContainer();
+
 
         /*****Create Window For Communicate*****/
         AnchorPane root=new AnchorPane();
         root.setPadding(new Insets(5));
+
+        Text titleMsg=new Text("You are in the game 👇");
+        titleMsg.setLayoutX(130);
+        titleMsg.setLayoutY(15);
+        titleMsg.setFont(Font.font("Arial",FontWeight.BOLD,13));
+        titleMsg.setFill(Color.RED);
+        root.getChildren().add(titleMsg);
 
         AnchorPane pane= new AnchorPane();
         pane.setPrefHeight(350);
@@ -76,8 +84,6 @@ public class PlayersContainer extends Application {
 
         observableList.add(rowContent);
 
-
-
         pane.getChildren().add(listView);
         root.getChildren().add(pane);
 
@@ -102,7 +108,9 @@ public class PlayersContainer extends Application {
 
 
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-        //myStage.setResizable(false);
+        myStage.setResizable(false);
+        myStage.setTitle("Guess Number");
+        myStage.getIcons().add(new Image(getClass().getResource("/hat.png").toExternalForm()));
         myStage.setScene(scene);
         myStage.show();
     }
@@ -116,7 +124,7 @@ public class PlayersContainer extends Application {
         //create agentContainer
         AgentContainer agentContainer = runtime.createAgentContainer(profile);
         //create new Agent in container
-        AgentController player1 = agentContainer.createNewAgent("Player2", "ma.enset.playersCA.PlayerAgent", new Object[]{this});
+        AgentController player1 = agentContainer.createNewAgent("Player1", "ma.enset.playersCA.PlayerAgent", new Object[]{this});
         //running of agent
         player1.start();
     }

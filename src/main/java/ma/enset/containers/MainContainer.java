@@ -7,13 +7,13 @@ import jade.wrapper.AgentContainer;
 
 public class MainContainer {
     public static void main(String[] args) throws Exception {
-        //Enverenment Instentiation
+        //Environment Instantiation
         Runtime runtime=Runtime.instance();
         //Configure Profile Jade
         ProfileImpl profile = new ProfileImpl();
         profile.setParameter(Profile.GUI,"true");
 
-        //creation ofmain container
+        //creation of main container
         AgentContainer mainContainer = runtime.createMainContainer(profile);
         mainContainer.start();
     }

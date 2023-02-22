@@ -8,15 +8,13 @@ import jade.wrapper.AgentController;
 public class ServersContainer {
     public static void main(String[] args) throws Exception {
         Runtime instance = Runtime.instance();
-
         ProfileImpl profile=new ProfileImpl();
         profile.setParameter(ProfileImpl.MAIN_HOST,"localhost");
 
         AgentContainer agentContainer = instance.createAgentContainer(profile);
+        //add server Agent to container
         AgentController server = agentContainer.createNewAgent("server", "ma.enset.serverC.ServerAgent", new Object[]{});
 
         server.start();
-
     }
-
 }
