@@ -76,21 +76,6 @@ public class PlayersContainer extends Application {
 
         observableList.add(rowContent);
 
-        /*contentBox.getChildren().add(rowContent);
-        contentBox.setSpacing(10);
-        contentBox.setLayoutY(25);
-        contentBox.setLayoutX(10);
-         */
-
-        /*ScrollPane spane=new ScrollPane();
-        spane.setPrefHeight(350);
-        spane.setPrefHeight(350);
-        spane.setLayoutX(25);
-        spane.setLayoutY(25);
-        spane.setContent(pane);
-        spane.setStyle("-fx-background:black ; -fx-background-radius: 20");
-        spane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        spane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);*/
 
 
         pane.getChildren().add(listView);
@@ -131,7 +116,7 @@ public class PlayersContainer extends Application {
         //create agentContainer
         AgentContainer agentContainer = runtime.createAgentContainer(profile);
         //create new Agent in container
-        AgentController player1 = agentContainer.createNewAgent("Player1", "ma.enset.playersCA.PlayerAgent", new Object[]{this});
+        AgentController player1 = agentContainer.createNewAgent("Player2", "ma.enset.playersCA.PlayerAgent", new Object[]{this});
         //running of agent
         player1.start();
     }

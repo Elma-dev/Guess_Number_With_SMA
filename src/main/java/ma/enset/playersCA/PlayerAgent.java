@@ -2,25 +2,47 @@ package ma.enset.playersCA;
 
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.ParallelBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import jade.lang.acl.ACLMessage;
-import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+
 
 
 public class PlayerAgent extends GuiAgent {
     private PlayersContainer containerPlayer;
-
+    private ParallelBehaviour parallelBehaviour;
 
     @Override
     public void setup(){
+        parallelBehaviour=new ParallelBehaviour();
+        parallelBehaviour.addSubBehaviour(new OneShotBehaviour() {
+
+            /***********Add This agent to list of player Agent inside of DF Agent********/
+            @Override
+            public void action() {
+                DFAgentDescription dfAgentDescription=new DFAgentDescription();
+                dfAgentDescription.setName(getAID());
+
+                ServiceDescription serviceDescription=new ServiceDescription();
+                serviceDescription.setType("Players");
+                serviceDescription.setName("Player");
+
+                dfAgentDescription.addServices(serviceDescription);
+
+                try{
+                    DFService.register(this.getAgent(),dfAgentDescription);
+                }catch (FIPAException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
 
         if(this.getArguments().length!=0){
             containerPlayer=(PlayersContainer)getArguments()[0];
@@ -29,7 +51,7 @@ public class PlayerAgent extends GuiAgent {
         }
 
         //Listen to the msgBox
-        addBehaviour(new CyclicBehaviour(){
+        parallelBehaviour.addSubBehaviour(new CyclicBehaviour(){
             @Override
             public void action() {
                 ACLMessage rcvMsg=receive();
@@ -42,9 +64,15 @@ public class PlayerAgent extends GuiAgent {
             }
         });
 
+        addBehaviour(parallelBehaviour);
+
     }
     public void takeDown(){
-
+        try {
+            DFService.deregister(this);
+        } catch (FIPAException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void afterMove(){
