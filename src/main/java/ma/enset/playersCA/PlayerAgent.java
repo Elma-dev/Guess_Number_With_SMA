@@ -1,15 +1,23 @@
 package ma.enset.playersCA;
 
 import jade.core.AID;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import jade.lang.acl.ACLMessage;
-
-import static jade.lang.acl.ACLParserConstants.AID;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 
 public class PlayerAgent extends GuiAgent {
     private PlayersContainer containerPlayer;
+
 
     @Override
     public void setup(){
@@ -19,6 +27,20 @@ public class PlayerAgent extends GuiAgent {
             //setHandle Of Agent for specify the agent
             containerPlayer.playerAgent=this;
         }
+
+        //Listen to the msgBox
+        addBehaviour(new CyclicBehaviour(){
+            @Override
+            public void action() {
+                ACLMessage rcvMsg=receive();
+                if(rcvMsg!=null){
+                    String msg=rcvMsg.getContent();
+                    containerPlayer.newMessage(msg);
+                }else {
+                    block();
+                }
+            }
+        });
 
     }
     public void takeDown(){
@@ -34,7 +56,6 @@ public class PlayerAgent extends GuiAgent {
     }
     @Override
     protected void onGuiEvent(GuiEvent guiEvent) {
-        System.out.println(guiEvent.getParameter(0));
         String number= (String) guiEvent.getParameter(0);
         ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
         message.setContent(number);
